@@ -11,7 +11,7 @@ enableGitInfo = true
   BookSection = 'docs'
   BookSearch = true
   BookComments = false
-  BookEditLink = 'https://github.com/dawid-gierlachowski/dawid-wiki/edit/main/{{ .Path }}'
+  BookEditLink = 'https://github.com/dawid-gierlachowski/dawidg-wiki/edit/main/{{ .Path }}'
 
 [markup.goldmark.renderer]
   unsafe = true
