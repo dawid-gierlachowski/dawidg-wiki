@@ -8,28 +8,23 @@
   {{ $prev := $pages.Next $ }}
   {{ $next := $pages.Prev $ }}
 
-  {{/* Only show prev/next if they share the same parent section */}}
-  {{ if and $prev (ne $prev.Parent.RelPermalink $.Parent.RelPermalink) }}
-    {{ $prev = nil }}
-  {{ end }}
-  {{ if and $next (ne $next.Parent.RelPermalink $.Parent.RelPermalink) }}
-    {{ $next = nil }}
-  {{ end }}
+  {{ $showPrev := and $prev $.Parent (eq $prev.Parent.RelPermalink $.Parent.RelPermalink) }}
+  {{ $showNext := and $next $.Parent (eq $next.Parent.RelPermalink $.Parent.RelPermalink) }}
 
-  {{- if or $prev $next }}
+  {{- if or $showPrev $showNext }}
   <div class="flex flex-wrap justify-between">
     <span>
-    {{ with $prev }}
-      <a href="{{ .RelPermalink }}" class="flex align-center">
+    {{ if $showPrev }}
+      <a href="{{ $prev.RelPermalink }}" class="flex align-center">
         <img src="{{ partial "docs/icon" "backward" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Backward" }}" />
-        <span>{{ partial "docs/title" . }}</span>
+        <span>{{ partial "docs/title" $prev }}</span>
       </a>
     {{ end }}
     </span>
     <span>
-    {{ with $next }}
-      <a href="{{ .RelPermalink }}" class="flex align-center">
-        <span>{{ partial "docs/title" . }}</span>
+    {{ if $showNext }}
+      <a href="{{ $next.RelPermalink }}" class="flex align-center">
+        <span>{{ partial "docs/title" $next }}</span>
         <img src="{{ partial "docs/icon" "forward" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Forward" }}" />
       </a>
     {{ end }}
